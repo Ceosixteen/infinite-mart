@@ -1,0 +1,6 @@
+{
+  "name": "Infinite Mart",
+  "description": "Premier online store for electronics, Arabian perfumes, skincare, luxury beauty, and smart home gadgets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
