@@ -1,9 +1,23 @@
-import React from 'react';
-import { ShieldCheck, Truck, Smartphone, CheckCircle, MapPin, Phone, Mail, MessageCircle, Heart } from 'lucide-react';
+import React, { useState } from 'react';
+import { ShieldCheck, Truck, Smartphone, CheckCircle, MapPin, Phone, Mail, MessageCircle, Heart, Send } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
+import { addEmailLead } from '../admin/data';
 
 export const Footer: React.FC = () => {
-  const { setActiveCategory } = useStore();
+  const { setActiveCategory, showToast } = useStore();
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!trimmed || !trimmed.includes('@')) {
+      showToast('Please enter a valid email address', 'warn');
+      return;
+    }
+    const added = addEmailLead(trimmed, 'Homepage');
+    showToast(added ? 'Subscribed! Watch for exclusive Juba deals 🎉' : "You're already on the list!", 'success');
+    setEmail('');
+  };
 
   const handleCategoryClick = (catSlug: string) => {
     setActiveCategory(catSlug);
@@ -82,6 +96,28 @@ export const Footer: React.FC = () => {
                 <span>WhatsApp Hotline</span>
               </a>
             </div>
+
+            <form onSubmit={handleSubscribe} className="pt-2 space-y-1.5">
+              <div className="font-bold text-yellow-400 uppercase tracking-wider text-[11px]">
+                Get Exclusive Deals
+              </div>
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="min-w-0 flex-1 bg-neutral-800 border border-neutral-700 rounded-xl px-3 py-2 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 bg-yellow-400 hover:bg-yellow-300 text-black font-bold w-8 h-8 rounded-xl flex items-center justify-center transition-colors"
+                  aria-label="Subscribe"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </form>
           </div>
 
           {/* Categories Col */}

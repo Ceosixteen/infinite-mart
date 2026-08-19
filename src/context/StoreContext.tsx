@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, CartItem, Coupon, CurrencyCode, VideoShowcase } from '../types';
-import { PRODUCTS } from '../data/products';
 import { COUPONS } from '../data/coupons';
+import { getEffectiveProducts } from '../admin/data';
 
 interface ToastMessage {
   id: string;
@@ -57,6 +57,13 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [products] = useState<Product[]>(() => {
+    try {
+      return getEffectiveProducts().filter((p) => !p.hidden);
+    } catch {
+      return [];
+    }
+  });
   const [currency, setCurrency] = useState<CurrencyCode>('USD');
   const [rateSSP, setRateSSP] = useState<number>(8000);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -264,7 +271,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   return (
     <StoreContext.Provider
       value={{
-        products: PRODUCTS,
+        products,
         currency,
         setCurrency,
         rateSSP,

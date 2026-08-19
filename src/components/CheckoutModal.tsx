@@ -4,6 +4,7 @@ import { X, CheckCircle2, ShieldCheck, Truck, CreditCard, Banknote, Smartphone, 
 import confetti from 'canvas-confetti';
 import { useStore } from '../context/StoreContext';
 import { formatPrice, buildWhatsAppOrderUrl } from '../utils/formatters';
+import { addOrder } from '../admin/data';
 
 const JUBA_AREAS = [
   'Juba Town Commercial Hub (Showroom Pickup)',
@@ -53,6 +54,30 @@ export const CheckoutModal: React.FC = () => {
     const newOrderId = `IM-JUBA-${Math.floor(100000 + Math.random() * 900000)}`;
     setConfirmedOrderId(newOrderId);
     setOrderConfirmed(true);
+
+    addOrder({
+      id: newOrderId,
+      customerName: fullName,
+      phone,
+      email: email || undefined,
+      deliveryArea,
+      specificAddress: specificAddress || undefined,
+      items: cart.map((item) => ({
+        productId: item.product.id,
+        title: item.product.title,
+        quantity: item.quantity,
+        priceUSD: item.product.priceUSD,
+        variant: item.selectedVariant,
+        color: item.selectedColor
+      })),
+      subtotalUSD: cartSubtotalUSD,
+      discountUSD: cartDiscountUSD,
+      totalUSD: cartTotalUSD,
+      couponCode: appliedCoupon?.code,
+      paymentMethod: paymentMethod.toUpperCase().replace(/_/g, ' '),
+      status: 'pending',
+      placedAt: new Date().toISOString()
+    });
 
     try {
       confetti({
