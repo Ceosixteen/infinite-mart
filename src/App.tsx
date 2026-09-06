@@ -2,6 +2,7 @@ import React from 'react';
 import { StoreProvider } from './context/StoreContext';
 import { ModernStorefront } from './components/ModernStorefront';
 import { ProductGrid } from './components/ProductGrid';
+import { Footer } from './components/Footer';
 import { QuickViewModal } from './components/QuickViewModal';
 import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
@@ -19,6 +20,7 @@ export default function App() {
         <main className="max-w-7xl mx-auto px-4 py-14">
           <ProductGrid />
         </main>
+        <Footer />
 
         {/* Global Modals & Drawers */}
         <QuickViewModal />
