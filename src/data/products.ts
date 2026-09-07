@@ -1,6 +1,7 @@
 import { Product } from '../types';
+import { IMPORTED_PERFUMES } from './importedPerfumes';
 
-export const PRODUCTS: Product[] = [
+const BASE_PRODUCTS: Product[] = [
   // --- SMARTPHONES & COMPUTING ---
   {
     id: 'prod-s25-ultra',
@@ -670,4 +671,9 @@ export const PRODUCTS: Product[] = [
       { name: 'Color', options: ['Obsidian Black & Gold', 'Emerald Green & Gold'] }
     ]
   }
+];
+
+export const PRODUCTS: Product[] = [
+  ...BASE_PRODUCTS.filter((product) => product.category !== 'perfumes'),
+  ...IMPORTED_PERFUMES
 ];
