@@ -56,7 +56,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.25 }}
-      onClick={() => { window.location.href = `/products/${product.slug}`; }}
+      onClick={() => { window.location.href = `/product/${product.slug}`; }}
       className="bg-white border border-neutral-200/90 rounded-3xl p-3.5 sm:p-4 flex flex-col justify-between hover:border-yellow-400 hover:shadow-xl transition-all duration-300 group relative cursor-pointer"
     >
       {/* Top Badges & Wishlist Action */}
@@ -143,7 +143,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.title}
           </h4>
 
-          <a href={`/products/${product.slug}`} onClick={(event) => event.stopPropagation()} className="inline-block mt-1 text-[10px] font-black uppercase tracking-wider text-amber-700 hover:underline">View full offer</a>
+          <a href={`/product/${product.slug}`} onClick={(event) => event.stopPropagation()} className="inline-block mt-1 text-[10px] font-black uppercase tracking-wider text-amber-700 hover:underline">View full offer</a>
 
           <p className="text-[11px] text-neutral-500 line-clamp-2 mt-1 leading-relaxed">
             {product.description}
