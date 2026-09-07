@@ -1,5 +1,6 @@
 import { Product } from '../types';
 import { IMPORTED_PERFUMES } from './importedPerfumes';
+import { IMPORTED_SKINCARE } from './importedSkincare';
 
 const BASE_PRODUCTS: Product[] = [
   // --- SMARTPHONES & COMPUTING ---
@@ -674,6 +675,7 @@ const BASE_PRODUCTS: Product[] = [
 ];
 
 export const PRODUCTS: Product[] = [
-  ...BASE_PRODUCTS.filter((product) => product.category !== 'perfumes'),
-  ...IMPORTED_PERFUMES
+  ...BASE_PRODUCTS.filter((product) => product.category !== 'perfumes' && product.category !== 'skincare'),
+  ...IMPORTED_PERFUMES,
+  ...IMPORTED_SKINCARE
 ];

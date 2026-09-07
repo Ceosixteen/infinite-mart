@@ -1,4 +1,5 @@
 import { Product } from '../types';
+import { PRODUCT_IMAGE_BY_SKU } from './productImages';
 
 const PERFUME_IMAGES = [
   'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80',
@@ -547,7 +548,7 @@ export const IMPORTED_PERFUMES: Product[] = IMPORTED_ROWS.map((row, index) => ({
   discountBadge: 'IMPORTED COLLECTION',
   rating: 4.8,
   reviewCount: 24 + (index % 73),
-  images: [PERFUME_IMAGES[index % PERFUME_IMAGES.length]],
+  images: [PRODUCT_IMAGE_BY_SKU[row.sku] || PERFUME_IMAGES[index % PERFUME_IMAGES.length]],
   description: row.description,
   features: ['Authentic imported fragrance', 'Long-lasting scent profile', 'Available for delivery across Juba'],
   specs: [{ label: 'SKU', value: row.sku }, { label: 'Unit', value: 'Each' }, { label: 'Collection', value: row.name.split(' ')[0] }],
@@ -558,4 +559,3 @@ export const IMPORTED_PERFUMES: Product[] = IMPORTED_ROWS.map((row, index) => ({
   isBestSeller: /khamrah|yara|asad|hawas|club de nuit|9pm/i.test(row.name),
   warranty: '100% Authentic Product Guarantee'
 }));
-
